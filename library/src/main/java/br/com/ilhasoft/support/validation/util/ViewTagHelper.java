@@ -43,10 +43,12 @@ public class ViewTagHelper {
         final int childCount = root.getChildCount();
         for (int i = 0; i < childCount; i++) {
             final View child = root.getChildAt(i);
-            if (child instanceof ViewGroup) {
-                views.addAll(getViewsByTag((ViewGroup) child, tagId));
+            if (child.getVisibility() == View.VISIBLE) {
+                if (child instanceof ViewGroup) {
+                    views.addAll(getViewsByTag((ViewGroup) child, tagId));
+                }
+                addViewWhenContainsTag(tagId, views, child);
             }
-            addViewWhenContainsTag(tagId, views, child);
         }
         return views;
     }
